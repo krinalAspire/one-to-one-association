@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express=require("express");
 const app=express();
 const {country, Capital}=require("./db/association");

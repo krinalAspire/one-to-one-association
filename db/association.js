@@ -1,7 +1,7 @@
 const { Sequelize} = require("sequelize");
 const { DataTypes} =Sequelize;
 
-const sequelize= new Sequelize('test','postgres', 'postgres',{
+const sequelize= new Sequelize('test',process.env.user, process.env.password,{
     dialect:'postgres'
 });
 
