@@ -21,17 +21,37 @@ const Capital= sequelize.define('capital',{
 
 country.hasOne(Capital, {foreignKey:"Id"});
 
-let count, cap;
+let count, cap, capm;
 
-sequelize.sync({alter:true}).then(()=>{
-   return Capital.findOne({where: { CapitalName: "dfsfhg"}});
+sequelize.sync({alter:true})
+.then(()=>{
+   return Capital.findOne({where: { CapitalName: "tokyo"}});
 }).then((data)=>{
     cap=data;
-    return country.findOne({where: {countryName :"ftfhjhj"}})
-}).then((data)=>{
+    return country.findOne({where: {countryName :"india"}})
+})
+.then((data)=>{
     count=data;
     count.setCapital(cap);
 })
+// .then(()=>{
+//     return Capital.findOne({where: {CapitalName:"spain"}})
+// })
+// .then((data)=>{
+//     cap=data;
+//     return country.findOne({where: {countryName: "india"}})
+// }).then((data)=>{
+//     capm=data;
+//     capm.setCapital(cap);
+// })
+// .then(()=>{
+//     return country.findOne({where: {countryName: "india"}});
+// }).then((data)=>{
+//     count=data;
+//     return count.getCapital();
+// }).then((data)=>{
+//     console.log(data.toJSON());
+// })
 .catch((err)=>{
     console.log(err);
 })

@@ -5,10 +5,10 @@ const {country, Capital}=require("./db/association");
 
 app.use(express.json());
 
-app.post("/capital",(req,res)=>{
+app.post("/capital",async(req,res)=>{
      try{
        const { CapitalName }= req.body;
-       const capital=Capital.create({
+       const capital=await Capital.create({
          CapitalName
        })
        res.send(capital);
@@ -17,21 +17,34 @@ app.post("/capital",(req,res)=>{
      }
 })
 
-app.get("/capital",(req,res)=>{
-  const user=Capital.findAll();
+app.get("/capital",async(req,res)=>{
+  const user=await Capital.findAll();
   res.send(user);
 })
 
-app.post("/country", (req,res)=>{
+app.post("/country", async(req,res)=>{
     try{
         const { countryName }= req.body;
-        const capital=country.create({
+        const capital=await country.create({
             countryName
         })
         res.send(capital);
       }catch(e){
          res.status(404).send(e)
       }
+})
+
+app.get("/onetoOne", async(req,res)=>{
+     try{
+      let data = await country.findAll({
+        include:Capital
+      })
+      // console.log(data);
+      res.status(201).send(data);
+     }catch(e){
+      res.status(404).send(e.message);
+      console.log(e.message);
+     }
 })
 
 app.get("/country",(req,res)=>{
